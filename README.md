@@ -94,7 +94,7 @@
         justify-content: center;
         padding: 12px 24px !important;
         font-size: 16px !important;
-        white-space: nowrap; /* 防止文字换行 */
+        white-space: nowrap;
       }
       .btn-ins::after {
         content: '';
@@ -246,7 +246,7 @@
       <div class="relative w-full max-w-md mx-auto mb-12 opacity-0 animate-fade-in-up" style="animation-delay: 0.6s;">
         <div class="card-ins">
           <p class="text-gray-600 text-sm leading-tight mb-8 text-center">
-            欢迎踏入能量色彩秘境。一起来解锁你的专属色彩人格吧~
+            欢迎踏入能量色彩秘境，一起来解锁你们的专属CP色吧~
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <button id="start-test-btn" class="btn-ins btn-ins-primary">开始测试</button>
