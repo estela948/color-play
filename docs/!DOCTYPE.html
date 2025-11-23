@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你们的专属CP色彩结果</title>
+    <!-- 引入你的 CSS 和 JS 文件 -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="card-ins" style="max-width: 90%; margin: 50px auto; text-align: center;">
+            <h1 class="text-shadow-lg" style="font-size: 2em;">你们的专属CP色彩！</h1>
+            
+            <div id="couple-result-display" style="margin: 30px 0;">
+                <!-- 结果将通过 JavaScript 动态插入 -->
+            </div>
+
+            <button id="restart-btn" class="btn-ins btn-ins-primary">重新开始</button>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script> <!-- 可以复用你的主 JS，里面包含 colorData -->
+    <script>
+        // 专门用于 couple-result.html 的脚本
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const p1 = urlParams.get('p1');
+            const p2 = urlParams.get('p2');
+
+            const resultContainer = document.getElementById('couple-result-display');
+            const restartBtn = document.getElementById('restart-btn');
+
+            // 检查参数是否有效
+            if (!p1 || !p2 || !colorData[p1] || !colorData[p2]) {
+                resultContainer.innerHTML = `<p>无法加载结果，请确保链接正确。</p>`;
+                return;
+            }
+
+            const p1Data = colorData[p1];
+            const p2Data = colorData[p2];
+
+            // 定义一些组合结果的逻辑和文案
+            const coupleResults = {
+                'pink-orange': '热情如火的组合！你们的生活充满激情和欢乐，是彼此最好的玩伴。',
+                'pink-blue': '浪漫与理性的交织。你们既能享受感性的甜蜜，也能一起规划美好的未来。',
+                'orange-blue': '动静结合，完美互补。一个带来活力，一个带来安稳，是非常平衡的一对。',
+                // ... 可以为所有可能的组合添加文案
+                'default': `当 ${p1Data.name} 遇上 ${p2Data.name}，你们创造了一种独一无二的和谐！`
+            };
+            
+            // 生成结果 HTML
+            let resultHtml = `
+                <div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
+                    <div style="text-align: center;">
+                        <div style="width: 100px; height: 100px; border-radius: 50%; background-color: ${p1Data.hex}; margin: 0 auto;"></div>
+                        <p style="margin-top: 10px;">${p1Data.name}</p>
+                    </div>
+                    <div style="display: flex; align-items: center; font-size: 2em;">+</div>
+                    <div style="text-align: center;">
+                        <div style="width: 100px; height: 100px; border-radius: 50%; background-color: ${p2Data.hex}; margin: 0 auto;"></div>
+                        <p style="margin-top: 10px;">${p2Data.name}</p>
+                    </div>
+                </div>
+                <p style="font-size: 1.2em; color: #333;">${coupleResults[`${p1}-${p2}`] || coupleResults[`${p2}-${p1}`] || coupleResults['default']}</p>
+            `;
+
+            resultContainer.innerHTML = resultHtml;
+
+            restartBtn.addEventListener('click', () => {
+                // 跳回首页，但清除所有参数
+                window.location.href = window.location.origin + '/yourrepo/'; // 替换为你的首页地址
+            });
+        });
+    </script>
+</body>
+</html>
